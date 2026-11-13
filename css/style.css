@@ -248,10 +248,22 @@ footer img{width:88px;height:88px;margin:0 auto 12px;border-radius:46% 54% 50% 5
   .tag{font-size:calc(clamp(24px,6vw,32px)*var(--hs))}
   .sub{font-size:16px}
   .btn{font-size:calc(21px*var(--hs));padding:11px 22px}
-  .offer{flex-direction:column;align-items:center;gap:28px}
-  .offer li{flex:none;width:min(100%,340px)}
-  .shp-ticket{width:min(100%,370px)}
-  .pola{width:min(100%,300px)}
+  /* экспозиция: 2 колонки вместо одной полосы */
+  .offer{display:grid;grid-auto-flow:row dense;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 14px;padding:14px 4px 6px;align-items:center}
+  .offer li{flex:none;width:100%;min-width:0;max-width:none;margin:0}
+  .oc{padding:18px 10px;gap:8px}
+  .oc .oico,.sz-l .oico,.sz-s .oico{width:1.9em;height:1.9em}
+  .sz-l span,.sz-m span,.sz-s span{font-size:calc(19px*var(--hs));max-width:100%;line-height:1.2}
+  .shp-ticket{grid-column:1/-1;max-width:none;width:100%;padding:16px 20px;gap:14px}
+  .shp-ticket span[data-t]{font-size:calc(13px*var(--hs) + 2px)}
+  .shp-post{padding:18px 14px 18px}
+  .shp-post span[data-t]{font-size:calc(19px*var(--hs));max-width:100%;margin-top:30px}
+  .shp-post .stamp{top:10px;right:10px;width:36px;height:42px}
+  .shp-post .stamp .oico{width:20px;height:20px}
+  .pola{width:100%;padding:7px 7px 9px}
+  .pola .cap{font-size:calc(16px*var(--hs));margin-top:6px}
+  .tape{width:54px;height:18px;top:-9px}
+  .tape.tl,.tape.tr{width:46px}
   .dish{flex-direction:column;gap:4px}
   .dish .r{text-align:left;display:flex;flex-wrap:wrap;gap:2px 14px;white-space:normal}
   .sheet h3{font-size:calc(34px*var(--hs))}
@@ -267,7 +279,24 @@ footer img{width:88px;height:88px;margin:0 auto 12px;border-radius:46% 54% 50% 5
 @media(max-width:380px){
   .wrap{padding:0 14px}
   nav{gap:14px;font-size:calc(19px*var(--hs))}
-  .offer li{width:100%}
-  .sz-l span{font-size:calc(22px*var(--hs))}
+  .offer{gap:24px 10px}
+  .sz-l span,.sz-m span,.sz-s span{font-size:calc(17px*var(--hs))}
   .btns{gap:10px}
+}
+
+/* ===== фикс: страница не шире экрана (подложки ::before, тени, повороты) ===== */
+html{overflow-x:hidden}
+body{overflow-x:hidden;position:relative}
+@supports(overflow:clip){
+  html,body{overflow-x:clip}
+  section,.hero,footer{overflow-x:clip}
+}
+@supports not (overflow:clip){section,.hero,footer{overflow-x:hidden}}
+@media(max-width:560px){
+  .hero-pic::before{inset:-10px -8px -8px -8px}
+  .ph::before{inset:-10px -6px -8px -6px}
+  .paper{box-shadow:5px 6px 0 -2px color-mix(in srgb,var(--c) 55%,var(--bg))}
+  .inserts{margin-inline:auto;padding-inline:6px}
+  .inserts .ph{max-width:100%}
+  .menu-head h2,.paper h2{overflow-wrap:anywhere}
 }
